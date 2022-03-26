@@ -1,4 +1,4 @@
-package queue;
+package queue.simplequeue;
 
 public class QueueWithLL<T> {
 
