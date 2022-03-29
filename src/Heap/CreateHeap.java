@@ -31,7 +31,7 @@ public class CreateHeap {
 
     }
 
-    private static void printHeap(int[] arr, int arraySize) {
+    public static void printHeap(int[] arr, int arraySize) {
         for (int i = 0; i<arraySize; ++i){
             System.out.print(arr[i] + " ");
 
@@ -50,7 +50,7 @@ public class CreateHeap {
 
     }
 
-    private static void heapify(int[] arr, int arraySize, int root) {
+    public static void heapify(int[] arr, int arraySize, int root) {
         int largest = root;
         int left = 2 * root + 1; // formula to find the left child of a node
         int right = 2 * root + 2; // formula to find the right child of a node
