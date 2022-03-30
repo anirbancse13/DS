@@ -1,4 +1,4 @@
-package Heap;
+package heap.maxheap;
 
 public class CreateHeap {
 
