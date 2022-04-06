@@ -2,8 +2,8 @@ package linkedlist.dll;
 
 public class DoublyLinkedList<T> {
 
-    private class Node<T>{
-        private T value;
+    private static class Node<T>{
+        private final T value;
         private Node<T> next;
         private Node<T> prev;
 
