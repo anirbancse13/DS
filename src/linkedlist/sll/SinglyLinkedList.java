@@ -150,5 +150,8 @@ public class SinglyLinkedList<T> {
         System.out.println(" END ");
     }
 
+    public int size(){
+        return size;
+    }
 
 }

@@ -12,12 +12,9 @@ public class SLLDriver {
 
         sll.insertLast(100);
 
-
         sll.insertAtPosition(99,3);
 
         sll.display();
-
-
 
         System.out.println(sll.deleteFirst());
 
@@ -32,5 +29,7 @@ public class SLLDriver {
         sll.display();
 
         System.out.println(sll.find(30));
+
+        System.out.println(sll.size());
     }
 }
