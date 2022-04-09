@@ -1,9 +1,7 @@
-package slidingwindow;
+package dsasheet.slidingwindow;
 
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
-import java.util.List;
 
 public class SlidingWindowMaximum {
     public static int[] maxSlidingWindow(int[] nums, int k) {

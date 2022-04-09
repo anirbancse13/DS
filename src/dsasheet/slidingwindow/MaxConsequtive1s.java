@@ -1,4 +1,4 @@
-package slidingwindow;
+package dsasheet.slidingwindow;
 
 public class MaxConsequtive1s {
     public static int longestOnes(int[] nums, int k) {

@@ -1,4 +1,4 @@
-package slidingwindow;
+package dsasheet.slidingwindow;
 
 import java.util.HashMap;
 import java.util.Map;
