@@ -1,0 +1,17 @@
+//https://leetcode.com/problems/factorial-trailing-zeroes/
+172. Factorial Trailing Zeroes
+
+Time complexity - O(logn)
+Space complexity - O(1)
+
+class Solution {
+    public int trailingZeroes(int n) {
+       
+        int result = 0;
+        while ( n > 0){
+            n = n/5;
+            result = result+n;
+        }
+        return result;
+    }
+}

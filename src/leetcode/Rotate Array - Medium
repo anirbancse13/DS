@@ -1,0 +1,65 @@
+https://leetcode.com/problems/rotate-array/submissions/
+189. Rotate Array
+
+Brute force - by me
+Time complexity - O(n)
+Space complexity - O(n)
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int len = nums.length;
+        if (len < 2){
+            return;
+        }
+        while (k > len){
+            k = k-len;
+        } 
+        int[] nums1 = new int[len];
+        System.arraycopy(nums, 0, nums1, 0, len);
+
+        int counter = 0;
+        for (int i = len - k; i < len; i++) {
+            nums[counter] = nums[i];
+            counter++;
+        }
+
+        for (int i = 0; i <= len - (k +1); i++) {
+            nums[counter] = nums1[i];
+            counter++;
+        }
+        
+    }
+}
+
+Optimal solution - From hint I understood the concept but was not able to execute properly. Got it from discussion section
+Time complexity - O(n)
+Space complexity - O(1)
+
+Steps:-
+k=3
+nums = 1 2 3 4 5 6 7
+
+Step 1 - Reverse full array :- 7 6 5 4 3 2 1
+Step 2 - Reverse from 0 to k-1 :- 5 6 7 4 3 2 1
+Step 3 - Reverse from k to length-1: 5 6 7 1 2 3 4
+
+class Solution {
+    public static void rotate(int[] nums, int k) {
+        k = k % nums.length;
+        reverse(nums,0,nums.length-1);
+        reverse(nums,0,k-1);
+        reverse(nums,k,nums.length-1);
+	}
+    public static void swap(int[] nums, int i, int j){
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+    public static void reverse(int[] nums, int left, int right){
+        while(left<right){
+            swap(nums,left,right);
+            left++;
+            right--;
+        }
+    }
+}
