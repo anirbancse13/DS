@@ -1,0 +1,42 @@
+https://leetcode.com/problems/rearrange-array-elements-by-sign/
+
+2149. Rearrange Array Elements by Sign
+
+// Space Complexity - O(n)
+//Time Complexity - O(n)
+// This solution is easy, it will be challenging to solve it in O(1) space complexity.
+
+//Optimal solution pending.
+
+class Solution {
+    public int[] rearrangeArray(int[] nums) {
+
+        int[] result = new int[nums.length];
+
+        int pos = 0;
+        int neg = 0;
+        int index = 0;
+
+        while (pos < nums.length){
+            if (nums[pos]> 0){
+                result[index] = nums[pos];
+                index= index +2;
+
+            }
+            pos++;
+        }
+
+        index =1;
+        while (neg < nums.length){
+            if (nums[neg]< 0){
+                result[index] = nums[neg];
+                index= index +2;
+
+            }
+            neg++;
+        }
+
+        return result;
+
+    }
+}
