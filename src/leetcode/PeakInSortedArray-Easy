@@ -25,13 +25,8 @@ class Solution {
             if(arr[mid-1] > arr[mid] && arr[mid] >= arr[mid+1])
                 result = peak(arr,left,mid-1,result);
         }
-        if(mid == 0) {
-            if(arr[mid] > arr[mid+1]){
-                return mid;
-            }else{
-                return mid+1;
-            }
-        }
+        if(mid == 0)
+            return mid+1;
 
         return result;
     }
