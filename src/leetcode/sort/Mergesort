@@ -1,0 +1,80 @@
+//https://leetcode.com/problems/sort-an-array/
+// 912. Sort an Array
+
+
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int start=0;
+        int end = nums.length-1;
+
+        mergeSort(nums,start,end);
+
+        return nums;
+    }
+
+    void mergeSort(int[]nums, int start, int end){
+        //Base condition
+        if(start>=end){
+            return;
+        }
+
+        int mid=start+((end-start))/2;
+
+        //Left array
+        mergeSort(nums, start, mid);
+
+        //Right array
+        mergeSort(nums, mid+1, end);
+
+        //Merge sorted left array and right array
+        merge(nums, start, end);
+
+    }
+
+    void merge(int[] nums, int start, int end){
+        int mid = start+(end-start)/2;
+        //length of first half
+        int length1 = mid-start+1;
+        //length of second half
+        int length2 = end-mid;
+        // Creating temporary array to store the sorted sub arrays
+        int[] arr1 = new int[length1];
+        int[] arr2 = new int[length2];
+
+        //Copy content of the large array into 2 smaller arrays
+        int mainArrayIndex=start;
+        for(int i=0;i<length1;i++){
+            arr1[i] = nums[mainArrayIndex++];
+        }
+        for(int i=0;i<length2;i++){
+            arr2[i] = nums[mainArrayIndex++];
+        }
+
+        //Sort and merge arr1 and arr2 into the main array
+        mainArrayIndex=start;
+        int index1=0;
+        int index2=0;
+
+        while(index1 < length1 && index2 < length2){
+            if(arr1[index1]<arr2[index2]){
+                nums[mainArrayIndex++] = arr1[index1++];
+            }else{
+                nums[mainArrayIndex++] = arr2[index2++];
+            }
+        }
+
+        //Array1 elements are yet to be placed
+
+        while(index1<length1){
+            nums[mainArrayIndex++] = arr1[index1++];
+        }
+
+
+        //Array1 elements are yet to be placed
+
+        while(index2<length2){
+            nums[mainArrayIndex++] = arr2[index2++];
+        }
+
+    }
+}
