@@ -1,0 +1,28 @@
+//Best Case - O(n)
+//Worst case - O(n^2)
+
+//Use when the array is almost sorted.
+//Size of the array is small
+
+Compare position i with all elements at its left
+If i is greater than a j, next all previous j will be smaller than i, hence break.
+If i is smaller than j, right shift j. Do this for all the j unless the loop ends or some j < i.
+Place i in front of that j or [j+1] position,
+
+public class Solution {
+
+	public static void insertionSort(int n , int[] arr) {
+        for(int i=1;i<n;i++){
+            int temp=arr[i];
+            int j=i-1;
+            for(;j>=0;j--){
+                if(arr[j] > temp){
+                    arr[j+1]=arr[j];
+                }else{
+                    break;
+                }
+            }
+            arr[j+1]=temp;
+        }
+    }
+}
