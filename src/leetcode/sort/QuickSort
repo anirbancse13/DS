@@ -1,0 +1,82 @@
+//Quick sort
+check base condition. if element number is 0/1 we consider the array to be sorted
+do partition for the element in the starting index, which gives us the pivot element position
+recursive call quicksort for start-pivot-1 & pivot+1-end.
+//partition logic
+    1. take start element as pivot element
+    2. find the pivot index by counting how many elements are smaller than the pivot element
+    3. start index+count should give us the right index to place the pivot element.
+    4. Swap the pivot element to its correct position
+    5. Ensure all left elements are less than pivot element and vice versa
+
+import java.util.*;
+
+public class Solution {
+    public static int[] solution(int[] arr){
+        int start = 0;
+        int end = arr.length-1;
+
+        quickSort(arr,start,end);
+
+        return arr;
+    }
+
+    public static void quickSort(int[] arr, int start, int end){
+        //base condition
+
+        if(start>=end)
+            return;
+
+        //Find the pivot position for te element at start and place it in the correct position.
+        //Ensure elements left of pivot elements are small and elements at right of the pivot element is large
+        int pivotIndex = partition(arr,start,end);
+
+        //Invoke quicksort for the left array
+        quickSort(arr,start,pivotIndex-1);
+        //Invoke quicksort for right array
+        quickSort(arr,pivotIndex+1,end);
+    }
+
+    public static int partition(int[] arr, int start, int end){
+        int pivotElement=arr[start];
+        int count=0;
+
+        //Find the number of elements smaller than the pivot element to find the right index for the pivot element.
+        for(int i=start+1;i<=end;i++){
+            if(arr[i]<pivotElement){
+                count++;
+            }
+        }
+        int pivotIndex=start+count;
+        //Swap the pivot element to its correct position
+        int temp = arr[pivotIndex];
+        arr[pivotIndex]= arr[start];
+        arr[start]=temp;
+
+        //Ensure elements left of pivot elements are small and elements at right of the pivot element is large
+        int i=start;
+        int j=end;
+        while(i<pivotIndex && j>pivotIndex){
+            if(arr[i]< pivotElement){
+                i++;
+            }
+            if(arr[j]>pivotElement){
+                j--;
+            }
+            if(i<pivotIndex && j>pivotIndex){
+                int pivotTemp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
+        }
+        return pivotIndex;
+    }
+
+    public static void main(String[] args) {
+        int[] arr= {2,5,3,4};
+        solution(arr);
+       for(int n : arr){
+           System.out.println(n);
+       }
+    }
+}
