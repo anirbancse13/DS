@@ -1,0 +1,63 @@
+https://practice.geeksforgeeks.org/problems/add-two-numbers-represented-by-two-arrays2408/1/#
+Add two numbers represented by two arrays
+
+class Solution{
+    String calc_Sum(int a[], int n, int b[], int m) {
+        int i=n-1;
+        int j=m-1;
+        int sum=0;
+        int carry=0;
+        int max = n>m?n:m;
+        int[] result = new int[max+1];
+
+        int k = result.length-1;
+        while(i>=0 && j>=0){
+            sum=a[i]+b[j]+carry;
+            carry=0;
+
+
+            if(sum>=10){
+                sum=sum-10;
+                carry = 1;
+            }
+
+            result[k]=sum;
+            k--;
+            i--;
+            j--;
+
+        }
+        if (i>=0){
+            while(i>=0){
+                sum=a[i]+carry;
+                carry=0;
+                if(sum>=10){
+                    sum=sum-10;
+                    carry = 1;
+                }
+                result[k]=sum;
+                k--;
+                i--;
+            }
+        }
+
+        if (j>=0){
+            while(j>=0){
+                sum=b[j]+carry;
+                carry=0;
+                if(sum>=10){
+                    sum=sum-10;
+                    carry = 1;
+                }
+                result[k]=sum;
+                k--;
+                j--;
+            }
+        }
+        if (carry>0){
+            result[k]=carry;
+        }
+
+        return Arrays.toString(result).replaceAll("\\[|\\]|,|\\s", "").replaceAll("^0+(?!$)", "");
+    }
+}
