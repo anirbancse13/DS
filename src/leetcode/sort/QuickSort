@@ -1,7 +1,7 @@
 //Quick sort
 check base condition. if element number is 0/1 we consider the array to be sorted
 do partition for the element in the starting index, which gives us the pivot element position
-recursive call quicksort for start-pivot-1 & pivot+1-end.
+recursive call quicksort for start to pivot-1 & pivot+1 to end.
 //partition logic
     1. take start element as pivot element
     2. find the pivot index by counting how many elements are smaller than the pivot element
@@ -9,76 +9,69 @@ recursive call quicksort for start-pivot-1 & pivot+1-end.
     4. Swap the pivot element to its correct position
     5. Ensure all left elements are less than pivot element and vice versa
 
-import java.util.*;
+class Solution {
+    public int[] sortArray(int[] nums) {
+        int start =0;
+        int end =nums.length-1;
 
-public class Solution {
-    public static int[] solution(int[] arr){
-        int start = 0;
-        int end = arr.length-1;
+        quickSort(nums, start, end);
 
-        quickSort(arr,start,end);
-
-        return arr;
+        return nums;
     }
 
-    public static void quickSort(int[] arr, int start, int end){
-        //base condition
-
-        if(start>=end)
+    private void quickSort(int[] nums, int start, int end){
+        //Base condition
+        if (start>= end)
             return;
 
-        //Find the pivot position for te element at start and place it in the correct position.
-        //Ensure elements left of pivot elements are small and elements at right of the pivot element is large
-        int pivotIndex = partition(arr,start,end);
+        //Call to place the starting element in the correct position and ensure all the elements left to it are small and vice versa.
+        int pivotIndex=getPivotIndex(nums, start, end);
 
-        //Invoke quicksort for the left array
-        quickSort(arr,start,pivotIndex-1);
-        //Invoke quicksort for right array
-        quickSort(arr,pivotIndex+1,end);
+        //Recursively call the left part of the array
+        quickSort(nums, start, pivotIndex-1);
+
+        //Recursively call the right part of the array
+        quickSort(nums, pivotIndex+1, end);
     }
 
-    public static int partition(int[] arr, int start, int end){
-        int pivotElement=arr[start];
-        int count=0;
+    private int getPivotIndex(int[] nums, int start, int end){
+        // Assuming the first element to be the pivot element
+        int pivotElement = nums[start];
 
-        //Find the number of elements smaller than the pivot element to find the right index for the pivot element.
+        //Count the no of elements smaller than the pivot element towards the right
+        int count=0;
         for(int i=start+1;i<=end;i++){
-            if(arr[i]<pivotElement){
+            if (nums[i]<=pivotElement){
                 count++;
             }
         }
-        int pivotIndex=start+count;
-        //Swap the pivot element to its correct position
-        int temp = arr[pivotIndex];
-        arr[pivotIndex]= arr[start];
-        arr[start]=temp;
 
-        //Ensure elements left of pivot elements are small and elements at right of the pivot element is large
+        int pivotIndex=start+count;
+
+        //Swap the pivot element to the correct position
+        int temp = nums[pivotIndex];
+        nums[pivotIndex] = pivotElement;
+        nums[start]=temp;
+
+        //Ensure all element left of the pivotElement are small and right are large
         int i=start;
         int j=end;
         while(i<pivotIndex && j>pivotIndex){
-            while(arr[i]< pivotElement){
+            if(nums[i]<=pivotElement){
                 i++;
+                continue;
             }
-            while(arr[j]>pivotElement){
+            if(nums[j]>pivotElement){
                 j--;
+                continue;
             }
-            if(i<pivotIndex && j>pivotIndex){
-                int pivotTemp=arr[i];
-                arr[i]=arr[j];
-                arr[j]=temp;
-                i++;
-                j--;
-            }
+            temp = nums[i];
+            nums[i]=nums[j];
+            nums[j]=temp;
+            i++;
+            j--;
+
         }
         return pivotIndex;
-    }
-
-    public static void main(String[] args) {
-        int[] arr= {2,5,3,4};
-        solution(arr);
-       for(int n : arr){
-           System.out.println(n);
-       }
     }
 }

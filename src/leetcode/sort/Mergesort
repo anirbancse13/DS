@@ -70,7 +70,7 @@ class Solution {
         }
 
 
-        //Array1 elements are yet to be placed
+        //Array2 elements are yet to be placed
 
         while(index2<length2){
             nums[mainArrayIndex++] = arr2[index2++];
