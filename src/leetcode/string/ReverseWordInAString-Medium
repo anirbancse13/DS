@@ -1,0 +1,25 @@
+https://leetcode.com/problems/reverse-words-in-a-string/
+151. Reverse Words in a String
+
+class Solution {
+    public String reverseWords(String s) {
+
+        s=s.trim();
+        char[] ch=s.toCharArray();
+        StringBuilder str = new StringBuilder();
+         StringBuilder sb = new StringBuilder();
+        for(int i=ch.length-1;i>=0;i--){
+            if (ch[i] != ' '){
+                sb.append(ch[i]);
+            }else{
+                str.append(sb.reverse().toString().trim());
+                if (ch[i-1] != ' '){
+                    str.append(ch[i]);
+                }
+                sb = new StringBuilder();
+            }
+        }
+        str.append(sb.reverse());
+        return str.toString().trim();
+    }
+}
