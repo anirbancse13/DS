@@ -1,0 +1,26 @@
+
+
+package leetcode;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+class Solution {
+    public static void countAndSay(int n, String[] mapping) {
+        if(n<1)
+            return;
+
+        countAndSay(n/10, mapping);
+        int digit = n%10;
+        System.out.print(mapping[digit] + " ");
+    }
+
+    public static void main(String[] args) {
+        int n =13579;
+        String[] mapping ={"ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE"};
+        countAndSay(n,mapping);
+
+    }
+}
