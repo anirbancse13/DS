@@ -1,0 +1,25 @@
+https://practice.geeksforgeeks.org/problems/reverse-a-stack/1/
+Reverse a Stack
+
+class Solution
+{
+    static ArrayList<Integer> reverse(Stack<Integer> s)
+    {
+        ArrayList<Integer> al = new ArrayList<>();
+
+        solve(s,al);
+
+        return al;
+    }
+
+    private static void solve(Stack<Integer> s, ArrayList<Integer> al){
+        if(s.isEmpty()){
+            return;
+        }
+
+        int temp = s.pop();
+        al.add(temp);
+        solve(s,al);
+
+    }
+}
