@@ -1,0 +1,110 @@
+https://practice.geeksforgeeks.org/problems/max-rectangle/1
+Max rectangle
+
+// { Driver Code Starts
+import java.util.*;
+
+class FindMinCost
+{
+	public static void main(String args[])
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t > 0)
+		{
+			int n = sc.nextInt();
+			int m = sc.nextInt();
+			int arr[][] = new int[n][m];
+			for(int i=0; i<n; i++)
+			{
+				for(int j=0; j<m; j++ )
+				{
+					arr[i][j] = sc.nextInt();
+				}
+			}
+			System.out.println(new Solution().maxArea(arr, n, m));
+		t--;
+		}
+	}
+}// } Driver Code Ends
+
+
+/*Complete the function given below*/
+class Solution {
+    public int largestRectangleArea(int[] heights, int n) {
+        int[] prev = new int[n];
+        prev = prevSmallElements(heights, n);
+
+        int[] next = new int[n];
+        next = nextSmallElements(heights, n);
+
+        int area = Integer.MIN_VALUE;
+
+        for(int i=0;i<n;i++){
+            int l = heights[i];
+
+            if(next[i] == -1){
+                next[i]=n;
+            }
+            int b=next[i]-prev[i]-1;
+
+            int newArea = l*b;
+            area=Math.max(area,newArea);
+        }
+
+        return area;
+    }
+
+    private int[] nextSmallElements(int[] heights, int n){
+        int[] arr = new int[n];
+        Stack<Integer> s = new Stack<>();
+        s.push(-1);
+
+        for(int i=n-1;i>=0;i--){
+            int curr = heights[i];
+            while(s.peek() != -1 && heights[s.peek()]>=curr){
+                s.pop();
+            }
+            arr[i]=s.peek();
+            s.push(i);
+        }
+        return arr;
+    }
+
+    private int[] prevSmallElements(int[] heights, int n){
+        int[] arr = new int[n];
+        Stack<Integer> s = new Stack<>();
+        s.push(-1);
+
+        for(int i=0;i<n;i++){
+            int curr = heights[i];
+            while(s.peek() != -1 && heights[s.peek()]>=curr){
+                s.pop();
+            }
+            arr[i]=s.peek();
+            s.push(i);
+        }
+        return arr;
+    }
+
+    public int maxArea(int M[][], int n, int m) {
+        // Find the max area of the 0th row
+
+        int area = largestRectangleArea(M[0],m);
+
+        //Keep adding values of from the 1st row with its previous row values
+        for(int i=1;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(M[i][j] !=0){
+                   M[i][j] = M[i][j] + M[i-1][j];
+                }
+            }
+            // ith row will be updated with summation of i and i-1th row
+            //Calculating max area of the ith row
+
+            area = Math.max(area,largestRectangleArea(M[i],m));
+        }
+
+        return area;
+    }
+}

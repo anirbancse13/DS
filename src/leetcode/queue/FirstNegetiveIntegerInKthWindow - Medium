@@ -1,0 +1,53 @@
+https://practice.geeksforgeeks.org/problems/first-negative-integer-in-every-window-of-size-k3345/1/
+First negative integer in every window of size k
+
+class Compute {
+
+    public long[] printFirstNegativeInteger(long A[], int N, int K)
+    {
+        Deque<Integer> dq = new LinkedList<>();
+        List<Long> result = new ArrayList<>();
+
+        //Storing the index of the negative elements of the first kth window
+        for(int i=0;i<K;i++){
+            if(A[i]<0){
+                dq.add(i);
+            }
+        }
+
+        //Storing the first negative number for the 1st kth window
+        if(!dq.isEmpty()){
+            result.add(A[dq.getFirst()]);
+        }else{
+            result.add(0L);
+        }
+
+        //Process remaining windows
+        for(int i=K;i<N;i++){
+            //Remove index from the queue that is outside the current kth window
+            if(!dq.isEmpty() && i-dq.getFirst()>=K){
+                dq.removeFirst();
+            }
+
+            //Store negative element index in deque
+            if(A[i]<0){
+                dq.add(i);
+            }
+
+            //Store in result the first negative element in result for the current window
+             if(!dq.isEmpty()){
+                result.add(A[dq.getFirst()]);
+            }else{
+                result.add(0L);
+            }
+        }
+
+        int count =0;
+        long[] l = new long[result.size()];
+        for(long x:result){
+            l[count++]=x;
+        }
+        return l;
+
+    }
+}

@@ -1,0 +1,70 @@
+https://www.geeksforgeeks.org/sum-minimum-maximum-elements-subarrays-size-k/
+Sum of minimum and maximum elements of all subarrays of size k.
+
+import java.io.*;
+import java.util.*;
+
+class GFG {
+	public static void main (String[] args) {
+	    int[] arr = {2, 5, -1, 7, -3, -1, -2};
+	    int n = arr.length;
+	    int k = 4;
+
+		System.out.println(sumMaxMin(arr, n, k));
+	}
+
+	private static int sumMaxMin (int[] arr, int n, int k){
+	    //Stores the maximum element's index of a window in desc order
+	    Deque<Integer> maxi = new LinkedList<>();
+	    //Stores the minimum element's index of a window in asc order
+	    Deque<Integer> mini = new LinkedList<>();
+	    int ans = 0;
+
+	    //For the first K-window
+	    for(int i =0;i<k;i++){
+	        //Removing all elements smaller than ith element
+	        while(!maxi.isEmpty() && (arr[maxi.getLast()] <= arr[i])){
+	            maxi.removeLast();
+	        }
+	        //Removing all elements greater than ith element
+	        while(!mini.isEmpty() && (arr[mini.getLast()] >= arr[i])){
+	            mini.removeLast();
+	        }
+	        //Adding index to the
+	        maxi.addLast(i);
+	        mini.addLast(i);
+	    }
+
+	    //Sum of max + min for the first kth window
+	    //Max and min element's index will be at the begining of the respective deque
+	    ans = ans + arr[maxi.getFirst()] + arr[mini.getFirst()];
+
+	    //For rest of the windows
+	    for (int i=k;i<n;i++){
+	        //Remove element outside the K-window
+	        while(!maxi.isEmpty() && i-maxi.getFirst() >=k){
+	            maxi.removeFirst();
+	        }
+	        while(!mini.isEmpty() && i-mini.getFirst() >=k){
+	            maxi.removeFirst();
+	        }
+
+	        //Addition of new element
+	        while(!maxi.isEmpty() && (arr[maxi.getLast()] <= arr[i])){
+	            maxi.removeLast();
+	        }
+
+	        while(!mini.isEmpty() && (arr[mini.getLast()] >= arr[i])){
+	            mini.removeLast();
+	        }
+
+	        maxi.addLast(i);
+	        mini.addLast(i);
+
+	        //Sum of the current window
+	        ans = ans + arr[maxi.getFirst()] + arr[mini.getFirst()];
+	    }
+
+	    return ans;
+	}
+}

@@ -1,0 +1,100 @@
+https://practice.geeksforgeeks.org/problems/the-celebrity-problem/1
+The Celebrity Problem
+
+import java.io.*;
+import java.util.*; 
+
+class GFG{
+    public static void main(String args[]) throws IOException { 
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t>0)
+        {
+            int N = sc.nextInt();
+            int M[][] = new int[N][N];
+            for(int i=0; i<N; i++)
+            {
+                for(int j=0; j<N; j++)
+                {
+                    M[i][j] = sc.nextInt();
+                }
+            }
+            System.out.println(new Solution().celebrity(M,N));
+            t--;
+        }
+    } 
+} // } Driver Code Ends
+
+
+//User function Template for Java
+
+
+class Solution
+{ 
+    //Check if a element knows b element, then corresponding co-ordintes in the matrix will be 1
+    private boolean knows(int a, int b, int M[][], int n){
+        if(M[a][b] == 1){
+            return true;
+        }
+        return false;
+    }
+    //Function to find if there is a celebrity in the party or not.
+    int celebrity(int M[][], int n)
+    {
+    	//Step 1:- Put all the elements inside the stack
+    	Stack<Integer> stack = new Stack<>();
+    	for(int i=0; i<n; i++){
+    	    stack.push(i);
+    	}
+    	
+    	//Step 2:- Take 2 elements from the top of the stack and check if they know each other,
+    	//unless there is one element left in the stack
+    	
+    	while(stack.size()>1){
+    	    int a = stack.pop();
+    	    int b = stack.pop();
+    	    
+    	    if(knows(a,b,M,n)){
+    	        //a knows b so a cannot be celebrity
+    	        stack.push(b);
+    	    }else{
+    	        //a does not knows b so a can be a potential celebrity
+    	        stack.push(a);
+    	    }
+    	}
+    	
+    	//Step 3:- Only one element is present in the stack that can be a portential celebrity
+    	//Verify - i) Check if the row of the element have all 0s
+    	//         ii) Check if the column of the element have all 1s except diagonal
+    	//If the above condition meets return the element
+    	
+    	int pc = stack.pop();
+    	int rowZeros=0;
+    	int columnOnes=0;
+    	
+    	//Checking rows for element pc
+    	for(int i=0;i<n;i++){
+    	    if(M[pc][i]== 0){
+    	        rowZeros++;
+    	    }
+    	}
+    	
+    	//If all row values are not 0 pc is not celebrity
+    	if(rowZeros != n)
+    	    return -1;
+    	
+    	//Checking column for element pc
+    	for(int i=0;i<n;i++){
+    	    if(M[i][pc] == 1){
+    	        columnOnes++;
+    	    }
+    	}
+    	
+    	//If all column value except diagonal is not 1 pc is not a celebrity
+    	if(columnOnes != n-1)
+    	    return -1;
+    	
+    	// If code flows till this point then pc is celebrity
+    	return pc;
+    }
+}

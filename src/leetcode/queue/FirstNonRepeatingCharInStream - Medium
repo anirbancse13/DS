@@ -1,0 +1,38 @@
+https://practice.geeksforgeeks.org/problems/first-non-repeating-character-in-a-stream1216/1
+First non-repeating character in a stream
+
+class Solution
+{
+    public String FirstNonRepeating(String A)
+    {
+        StringBuilder sb = new StringBuilder();
+        int[] charCount = new int[26];
+        Queue<Character> q = new LinkedList<>();
+
+        for(int i=0;i<A.length();i++){
+            //extracting each character
+            char temp = A.charAt(i);
+            //keeping count of characters encountered
+            charCount[temp-'a'] = charCount[temp-'a'] +1;
+            //adding the character to the queue
+            q.add(temp);
+
+            //If the queue front has char that has been repeated remove it
+            //Else the char at the front of the queue is the first no repeating character which can be added to the answer
+            while(!q.isEmpty()){
+                if(charCount[q.peek()-'a'] > 1){
+                    q.remove();
+                }else{
+                    sb.append(String.valueOf(q.peek()));
+                    break;
+                }
+            }
+
+            //If the queue happens to be empty then there is no non-repeatating character
+            if (q.isEmpty()){
+                sb.append("#");
+            }
+        }
+        return sb.toString();
+    }
+}
