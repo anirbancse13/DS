@@ -1,0 +1,27 @@
+https://leetcode.com/problems/gas-station/
+134. Gas Station / Circular tour
+
+class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int balance = 0; // extra gas left after reaching the next position from the start position
+        int deficit = 0; // if balance left is less than 0 after reaching a position from start, it signifies all position in between while trying to reach the current position will always have deficit in petrol. If you dont understand this point watch love babbar video
+
+        int start = 0; //Possible starting point which might allow us to complete the entire circular tour
+
+        for(int i=0;i<gas.length;i++){
+            balance = balance + (gas[i] - cost[i]); //Amount of gas left while travelling from i to i+1
+            if (balance < 0){
+                deficit = deficit + balance; //If gas is less than the distance between i and i+1 gas pum, its a deficit
+                start = i+1; //Moving start to i+1 position as any position from start to i wont be able to reach the ith position with balance >= 0
+                balance = 0; //As start is moved to new position balance is reset
+            }
+        }
+
+        //while going through the circular path if we reach a position which we knew from before hand had a deficit we simply check if the available balance is able to overcome the deficit. If so then our starting position is a correct index to start else there is no possible solution.
+        if(deficit + balance >= 0 ){
+            return start;
+        }else{
+            return -1;
+        }
+    }
+}

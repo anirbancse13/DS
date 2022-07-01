@@ -1,0 +1,20 @@
+https://practice.geeksforgeeks.org/problems/find-unique-element2632/1/
+Find unique element
+
+class Solution {
+    
+    public int findUnique(int a[], int n, int k)
+    {
+        Arrays.sort(a);
+        for(int i=0;i<a.length;i+=k){
+            if(i+(k-1)<a.length){
+                if(a[i]!=a[i+(k-1)]){
+                    return a[i];
+                }
+            }else 
+                return a[i];
+            
+        }
+        return 0;
+    }
+}

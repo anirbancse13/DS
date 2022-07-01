@@ -1,0 +1,49 @@
+https://practice.geeksforgeeks.org/problems/delete-middle-element-of-a-stack/1/#
+Delete middle element of a stack
+
+class Solution
+{
+    //Function to delete middle element of a stack.
+    public void deleteMid(Stack<Integer>s,int sizeOfStack){
+        int m = (sizeOfStack/2);
+        Stack<Integer> temp = new Stack<>();
+
+        for(int i=0;i<=m;i++){
+            if(i!=m){
+                temp.push(s.pop());
+            }else{
+                s.pop();
+            }
+        }
+
+        while(!temp.isEmpty()){
+            s.push(temp.pop());
+        }
+    }
+}
+
+//Recursive
+
+class Solution
+{
+    //Function to delete middle element of a stack.
+    public void deleteMid(Stack<Integer>s,int sizeOfStack){
+
+        int middle = sizeOfStack/2;
+        int count = 0;
+        solve(s,count, middle);
+    }
+
+    private void solve(Stack<Integer>s,int count, int middle){
+        if(count == middle){
+            s.pop();
+            return;
+        }
+
+        int temp = s.pop();
+
+        solve(s,count+1, middle);
+
+        s.push(temp);
+    }
+}

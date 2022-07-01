@@ -1,0 +1,27 @@
+https://www.codingninjas.com/codestudio/problems/redundant-brackets_975473?leftPanelTab=0
+Redundant Brackets
+
+import java.util.ArrayList;
+import java.util.*;
+public class Solution
+{
+    public static boolean findRedundantBrackets(String s)
+    {
+        char c[] = s.toCharArray();
+        Stack<Character> stack = new Stack<>();
+        for(int i=0;i<c.length;i++){
+            if (c[i] == '(' || c[i] == '+' || c[i] == '-' || c[i] == '*' || c[i] == '/'){
+                stack.push(c[i]);
+            }else if(c[i] == ')'){
+                if(stack.peek() == '('){
+                    return true;
+                }
+                while(stack.peek() != '('){
+                    stack.pop();
+                }
+                stack.pop();
+            }
+        }
+        return false;
+    }
+}

@@ -1,0 +1,42 @@
+https://leetcode.com/problems/permutations/
+46. Permutations
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        //Create the output DS
+        List<List<Integer>> ans = new ArrayList<>();
+
+        //Initialize index
+        int index = 0;
+
+        //Call the solve method which will add all possible solutions to ans
+        solve(ans, nums, index);
+
+        //Return the ans as the solve method will already add all the solutions to it
+        return ans;
+    }
+
+    private void solve(List<List<Integer>> ans, int[] nums, int index){
+
+        //Base case
+        if(index>=nums.length){
+            ans.add(Arrays.stream(nums).boxed().collect(Collectors.toList()));
+        }
+
+        //Loop from index position to end of the list to find all the possible combinations
+        for(int j=index; j<nums.length;j++){
+            //Swap the values of index to all the position j traverses
+            int temp1 = nums[index];
+            nums[index]=nums[j];
+            nums[j]= temp1;
+
+            //Call solve method recursivly to find possible solution for the newly formed input data
+            solve(ans, nums, index+1);
+
+            //BackTrack to bring the nums to its original position to solve for next j position
+            int temp2 = nums[index];
+            nums[index]=nums[j];
+            nums[j]= temp2;
+        }
+    }
+}

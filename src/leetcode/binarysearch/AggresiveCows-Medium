@@ -1,0 +1,53 @@
+//https://leetcode.com/problems/magnetic-force-between-two-balls/
+//1552. Magnetic Force Between Two Balls
+
+class Solution {
+    public int maxDistance(int[] position, int m) {
+        //As the positions can be unsorted in array, we need to sort them first
+        Arrays.sort(position);
+
+        //Result search space lies between 0 to largest distance of the stall/bucket
+        int s=0;
+        int e=position[position.length-1];
+        //Finding the mid of the result search space so that the value can be searched using binary search
+        int mid=s+((e-s)/2);
+        int ans=-1;
+
+        while(s<=e){
+            if(isPossible(position,mid,m)){
+                //If isPossible is true with the current mid we store it in answer and moves the start to mid+1,
+                //as we need to store the maximum distance that can be achieved.
+                ans=mid;
+                s=mid+1;
+            }else{
+                //As current mid value cannot give answer, we need to look for value less than mid.
+                //Hence moving the end to mid.
+                e=mid-1;
+            }
+            mid=s+((e-s)/2);
+        }
+        return ans;
+    }
+
+    public boolean isPossible(int[] position, int mid, int m){
+        int magnetCount=1;
+        //Placing the first cow/magnet in the stall/bucket in the first index
+        int lastPosition=position[0];
+
+        for(int i=0;i<position.length;i++){
+        //If the last position and the current position distance is >=mid, then we can say this is the min of max distance at which two cows/magnets can be placed.
+        //We then try to place the next magnet or cow.
+            if(position[i]-lastPosition>=mid){
+                magnetCount++;
+                //Returns true if all the magnet and cow have already been placed.
+                if(magnetCount==m){
+                    return true;
+                }
+                //If we have more cows or magnets to be places we update the lastPosition with the current index in which a cow/magnet have been placed/
+                lastPosition=position[i];
+            }
+        }
+        //When no solution is possible
+        return false;
+    }
+}

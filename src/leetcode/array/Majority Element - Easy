@@ -1,0 +1,31 @@
+https://leetcode.com/problems/majority-element/
+169. Majority Element
+
+// Brute force
+Time complexity - O(n)
+Space complexity - O(n)
+class Solution {
+    public int majorityElement(int[] nums) {
+        
+        Map<Integer, Integer> countMap = new HashMap<>();
+        for (int num : nums) {
+            if (countMap.get(num)!= null &&   countMap.get(num) >= 1) {
+                Integer count = countMap.get(num);
+                count++;
+                countMap.put(num, count);
+            }else{
+                countMap.put(num, 1);
+            }
+        }
+
+        int maxCount = Collections.max(countMap.values());
+        int maxValue = 0;
+        for(Map.Entry<Integer,Integer> e : countMap.entrySet()){
+            if (e.getValue() == maxCount){
+                maxValue = e.getKey();
+                break;
+            }
+        }
+        return maxValue;
+    }
+}

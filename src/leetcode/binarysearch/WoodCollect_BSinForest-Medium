@@ -1,0 +1,42 @@
+//https://practice.geeksforgeeks.org/problems/ffd66b6a0bf7cefb9987fa455974b6ea5695709e/1/#
+Binary Search in forest
+
+//Similar to book allocation
+
+class Solution
+{
+    static int find_height(int tree[], int n, int k)
+    {
+        int s =0;
+        int e =sum(tree);
+        int height =s+((e-s)/2);
+
+
+        while(s<=e){
+            int wood=0;
+            for(int i=0;i<tree.length;i++){
+                if(tree[i]> height){
+                   wood=wood+(tree[i]-height);
+                }
+            }
+            if(wood == k) return height;
+
+            if(wood>k){
+                s=height+1;
+            }else{
+                e = height-1;
+            }
+
+            height=s+((e-s)/2);
+        }
+
+        return -1;
+    }
+    static int sum(int[] tree){
+        int sum =0;
+        for(int n:tree){
+            sum+=n;
+        }
+        return sum;
+    }
+}

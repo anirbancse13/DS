@@ -1,0 +1,55 @@
+https://leetcode.com/problems/permutation-in-string/
+567. Permutation in String
+
+class Solution {
+    public boolean checkInclusion(String s1, String s2) {
+        //Store occurance of characters of s1 in a string
+        int[] s1Count= new int[26];
+        for(int i=0;i<s1.length();i++){
+            int index = s1.charAt(i) - 'a';
+            s1Count[index]++;
+        }
+
+        int windowSize=s1.length();
+
+        //Checking for the first window from s2
+        int i=0;
+        int[] s2Count= new int[26];
+        while(i<windowSize && i<s2.length()){
+            int index= s2.charAt(i)- 'a';
+            s2Count[index]++;
+            i++;
+        }
+
+        //If the count arrays are equal then we have a match o need to check rest of the s2
+        if(checkEqual(s1Count,s2Count)){
+            return true;
+        }
+
+        //Check character count for rest of the string with window size of s1 length
+        while(i<s2.length()){
+            int newIndex = s2.charAt(i)-'a';
+            s2Count[newIndex]++;
+
+            int oldIndex=s2.charAt(i-windowSize)-'a';
+            s2Count[oldIndex]--;
+
+            i++;
+
+            if(checkEqual(s1Count,s2Count)){
+            return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean checkEqual(int[] arr1, int[] arr2){
+        for (int i=0;i<26;i++){
+            if(arr1[i]!=arr2[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+}
