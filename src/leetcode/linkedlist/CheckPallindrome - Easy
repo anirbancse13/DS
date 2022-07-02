@@ -1,0 +1,51 @@
+https://leetcode.com/problems/palindrome-linked-list/
+234. Palindrome Linked List
+
+class Solution {
+    private ListNode getMid(ListNode head){
+        ListNode slow = head;
+        ListNode fast = head.next;
+
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+
+    private ListNode reverse(ListNode head){
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode forward = null;
+
+        while(curr != null){
+            forward = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = forward;
+        }
+        return prev;
+    }
+
+    public boolean isPalindrome(ListNode head) {
+
+        //Step 1: Find mid of the list
+        ListNode mid = getMid(head);
+
+        //Step 2: Reverse the list from mid+1 to end
+        mid.next = reverse(mid.next);
+
+        //Step 3: Compare first half and 2nd half
+        ListNode head1 = head;
+        ListNode head2 = mid.next;
+
+        while(head2!=null){
+            if(head1.val != head2.val){
+                return false;
+            }
+            head1 = head1.next;
+            head2 = head2.next;
+        }
+        return true;
+    }
+}

@@ -1,0 +1,38 @@
+https://leetcode.com/problems/reverse-nodes-in-k-group/
+25. Reverse Nodes in k-Group
+
+// I am reversing the group of nodes even if the size of the group is less than k.
+
+class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if(head == null){
+            return null;
+        }
+
+        //Reverse first group of k nodes
+        ListNode curr = head;
+        ListNode prev = null;
+        ListNode fwd = null;
+
+        int count = 0;
+        while( curr != null && count < k){
+            fwd = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = fwd;
+            count++;
+        }
+
+        //Recursive call to reverse rest of the groups
+        ListNode newHead = null;
+        if(fwd != null){
+            newHead = reverseKGroup(fwd,k);
+        }
+        //Join last node of the current reversed group with the head of reversed list from the recursion call
+        head.next = newHead;
+
+        //Assign new head
+        head = prev;
+        return head;
+    }
+}
