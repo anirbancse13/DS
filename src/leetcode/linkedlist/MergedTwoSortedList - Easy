@@ -1,0 +1,48 @@
+https://leetcode.com/problems/merge-two-sorted-lists/
+21. Merge Two Sorted Lists
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        if (list1 == null){
+            return list2;
+        }
+
+        if (list2 == null){
+            return list1;
+        }
+
+        if (list1.val <= list2.val){
+            return solve(list1, list2);
+        }else{
+            return solve(list2, list1);
+        }
+    }
+
+    private ListNode solve(ListNode list1, ListNode list2){
+        ListNode prev = list1;
+        ListNode curr = list1.next;
+        ListNode temp = list2;
+        ListNode forward = null;
+
+        while(temp != null && curr != null){
+            if(temp.val >= prev.val && temp.val <= curr.val){
+                forward = temp.next;
+                prev.next = temp;
+                temp.next = curr;
+                prev = temp;
+                temp = forward;
+            }else{
+                prev = prev.next;
+                curr = curr.next;
+            }
+        }
+
+        while(temp != null){
+            prev.next = temp;
+            prev = temp;
+            temp = temp.next;
+        }
+        return list1;
+    }
+}
