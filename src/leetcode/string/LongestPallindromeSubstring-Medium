@@ -1,0 +1,32 @@
+https://leetcode.com/problems/longest-palindromic-substring/
+5. Longest Palindromic Substring
+
+// Main idea is to consider each character as probable middle of a palindrome and check from middle to both side.
+
+class Solution {
+    int maxLength=0;
+    int startIndex=-1;
+
+    public String longestPalindrome(String s) {
+        if(s.length()<2)
+            return s;
+        for(int i=0;i<s.length()-1;i++){
+            //Palindrome can be odd length, so mid will be a single character
+            expandRange(s,i,i);
+            //If Palindrome is of even length, mid will be of two characters
+            expandRange(s,i,i+1);
+        }
+        return s.substring(startIndex,startIndex+maxLength);
+    }
+
+    private void expandRange(String s, int begin, int end){
+        while(begin>=0 && end<s.length() && s.charAt(begin) == s.charAt(end)){
+            begin--;
+            end++;
+        }
+        if(maxLength<(end-begin-1)){
+            maxLength=end-begin-1;
+            startIndex=begin+1;
+        }
+    }
+}

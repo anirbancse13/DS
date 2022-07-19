@@ -1,0 +1,42 @@
+class Employee{
+   int id,
+   String name,
+   int age,
+   String active,
+   String department;
+   int yearOfJoining;
+   double salary;
+}
+
+//Collection of employees - employeeList
+
+Question 1 - Program to print the maximum minimum employee salary from the given collection.
+Optional<Employee> highestEmployee = employeeList.stream()
+    .collect(Collections.maxBy(
+        Comparator.comparingDouble(Employee::getSalary)));
+
+Optional<Employee> lowestEmployee = employeeList.stream()
+    .collect(Collectors.minBy(
+        Comparator.comparingDouble(Employee::getSalary)));
+
+Question 2 - Program to print the max salary of an employee department wise
+Map<String, Optional<Employee>> deptHighestSal =
+                    employeeList.stream()
+                        .collect(
+                            Collectors.groupingBy(Employee::getDept,
+                                Collectors.reducing(BinaryOperator.maxBy(Comparator.comparing(Employee::getSalary)))));
+
+                                employeeList.stream().collect(
+                                                            Collectors.groupingBy(Employee::getDept,
+                                                                Collectors.maxBy(Comparator.comparing(Employee::getSal))));
+
+Question 3 - Count the no of active and inactive employees
+Map<String, Integer> count = employeeList.stream() .collect(
+    Collectors.groupingBy((Employee::getActive), Collectors.counting()));
+
+Question 4 - Print the employee details working in each department
+Map<String, List<Employee>> empDetailsByDept = employeeList.stream().collect(Collectors.groupingBy(Employee::getDept));
+
+Question 5 - Count the no of employees working in each department
+Map<String, Integer> empCountByDept = employeeList.stream().collect(
+                                                Collectors.groupingBy(Employee::getDept, Collectors.counting()));

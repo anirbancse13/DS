@@ -11,7 +11,7 @@ class Solution {
         for(int i=0;i<gas.length;i++){
             balance = balance + (gas[i] - cost[i]); //Amount of gas left while travelling from i to i+1
             if (balance < 0){
-                deficit = deficit + balance; //If gas is less than the distance between i and i+1 gas pum, its a deficit
+                deficit = deficit + balance; //If gas is less than the distance between i and i+1 gas pump, its a deficit
                 start = i+1; //Moving start to i+1 position as any position from start to i wont be able to reach the ith position with balance >= 0
                 balance = 0; //As start is moved to new position balance is reset
             }

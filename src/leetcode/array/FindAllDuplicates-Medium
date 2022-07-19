@@ -1,6 +1,8 @@
 //https://leetcode.com/problems/find-all-duplicates-in-an-array/
 442. Find All Duplicates in an Array
 
+//Find index associated with a value as index will be 0-(n-1) and numbers will be 1-n. So for any number n associated valid index will be n-1
+
 class Solution {
     public List<Integer> findDuplicates(int[] nums) {
         List<Integer> result = new ArrayList<>();
@@ -10,6 +12,7 @@ class Solution {
             if(nums[index]<0){
                 result.add(Math.abs(nums[i]));
             }else{
+                //To indicate that this index has been visited
                 nums[index]=nums[index]*-1;
             }
         }

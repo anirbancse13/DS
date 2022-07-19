@@ -1,0 +1,27 @@
+https://leetcode.com/problems/maximum-subarray/
+53. Maximum Subarray
+
+class Solution {
+    public int maxSubArray(int[] nums) {
+
+        int maxSum = Integer.MIN_VALUE; // Holds the final answer, i.e maxsum of all the sub arrays
+        int currSum = 0; // Holds the sum of the current subarray that is being traversed
+        int[] indexSubArray = new int[2];
+        int temp = 0;
+
+        for(int i=0; i<nums.length;i++){
+            currSum+=nums[i];
+            if(currSum>maxSum){
+                maxSum=currSum;
+                indexSubArray[1] = i;
+                indexSubArray[0] = temp;
+            }
+            if(currSum < 0){
+                currSum=0;
+                temp = i+1;
+            }
+        }
+        System.out.println("Start: " + indexSubArray[0] + " End: " + indexSubArray[1]);
+        return maxSum;
+    }
+}
