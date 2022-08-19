@@ -1,0 +1,44 @@
+https://leetcode.com/problems/3sum/
+15. 3Sum
+
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+
+        //Sorting the array to implement 2-pointer approach to find triplets
+        Arrays.sort(nums);
+
+        // Result : a+b+c = 0
+        //Loop to find possible a that might form triplets.
+        for(int i =0; i<nums.length-2;i++){
+            if(i==0 || nums[i]!=nums[i-1]){
+                int sum = 0 - nums[i];
+                int low = i+1;
+                int high = nums.length-1;
+                //low and high is probable values of b and c corresponding to a
+                while(low<high){
+                    if(nums[low]+nums[high]==sum){
+                        //when b+c = 0-a, we have a triplet and add it to the result
+                        List<Integer> triplets = new ArrayList<>();
+                        triplets.add(nums[i]);
+                        triplets.add(nums[low]);
+                        triplets.add(nums[high]);
+                        result.add(triplets);
+
+                        //Moving high and low to a value which is different from the last low and high that we stored as triplet
+                        while(low < high && nums[low] == nums[low+1]) low++;
+                        while(high> low && nums[high] == nums[high-1]) high--;
+                        low++;
+                        high--;
+                    }else if(nums[low]+nums[high]<sum){
+                        //if b+c < sum, we need to increase the summation, if we decrease c then c will be less as array is sorted, hence we increase b.
+                        low++;
+                    }else if(nums[low]+nums[high]>sum){
+                        high--;
+                    }
+                }
+            }
+        }
+        return result;
+    }
+}

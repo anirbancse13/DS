@@ -1,0 +1,15 @@
+https://practice.geeksforgeeks.org/problems/key-pair5616/1
+
+class Solution {
+    boolean hasArrayTwoCandidates(int arr[], int n, int x) {
+        Set<Integer> set = new HashSet<>();
+        for(int num : arr){
+            if(set.contains(num)){
+                return true;
+            }
+            int result = x-num;
+            set.add(result);
+        }
+        return false;
+    }
+}

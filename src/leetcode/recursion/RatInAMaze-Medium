@@ -59,7 +59,7 @@ class Solution {
     private static boolean isPossible(int x, int y, int n, int[][] m, int[][] visited){
         //For a path to be valid
         //  1. x and y should be inside the matrix
-        //  2. input matrix x,y cordinate should have value 1
+        //  2. input matrix x,y coordinate should have value 1
         //  3. visited matrix x,y co-ordinate should not be marked as 1
         if((x>=0 && x<=n-1) && (y>=0 && y<=n-1) && m[x][y] == 1 && visited[x][y] == 0){
             return true;
@@ -74,7 +74,7 @@ class Solution {
             return;
         }
         
-        //Marking the visited mtrix for the current x & y co-ordinates
+        //Marking the visited matrix for the current x & y co-ordinates
         visited[x][y] = 1;
         
         //Go down from the current position (x+1,y)
@@ -121,7 +121,7 @@ class Solution {
             path.deleteCharAt(lastIndex);
         }
         
-        //Once the whole souce to destination for one path is covered, backtrack the visited matrix for next set of moves
+        //Once the whole source to destination for one path is covered, backtrack the visited matrix for next set of moves
         visited[x][y]=0;
         
     }

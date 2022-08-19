@@ -1,5 +1,14 @@
 https://leetcode.com/problems/rotate-array/submissions/
 189. Rotate Array
+/* Step1: Handle edge condition
+                    - k = 0
+                    - nums.length <=1
+                    - k > length
+            Step2: Reverse start - length-k-1
+            Step3: Reverse length-k - length-1
+            Step4: Reverse whole array
+*/
+
 
 class Solution {
     public void rotate(int[] nums, int k) {

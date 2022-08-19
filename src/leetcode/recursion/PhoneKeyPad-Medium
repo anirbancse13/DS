@@ -13,7 +13,7 @@ class Solution {
         return ans;
     }
 
-    private void solve(String digits, List<String> ans, StringBuilder output, int index, String[] mapping  ){
+    private void solve(String digits, List<String> ans, StringBuilder output, int index, String[] mapping ){
         //base condition
         if(index>=digits.length()){
             ans.add(output.toString());

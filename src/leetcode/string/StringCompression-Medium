@@ -1,0 +1,40 @@
+https://leetcode.com/problems/string-compression/
+443. String Compression
+
+/*
+    Traverse the array, i starts from 0 and j starts from i+1;
+    Increment j till it reaches some index for which arr[i] != arr[j];
+    j-i will give the count of the character in arr[i];
+    Take a countIndex from 0. This will be used to store the result
+    Store arr[i] in arr[countIndex] and increment count index.
+    If count of the character in arr[i] is gt that 1 store the subsequent digits in countIndices.
+*/
+
+class Solution {
+    public int compress(char[] chars) {
+        int n = chars.length;
+        int countIndex=0;
+        int i=0;
+        while(i<n){
+            int j = i+1;
+            while(j<n && chars[i]==chars[j]){
+                j++;
+            }
+
+            chars[countIndex++]=chars[i];
+
+            int count = j-i;
+            if(count>1){
+               String cs = String.valueOf(count);
+                for(int k=0;k<cs.length();k++){
+                    chars[countIndex++] = cs.charAt(k);
+                }
+            }
+
+
+            i=j;
+        }
+
+        return countIndex;
+    }
+}
