@@ -1,0 +1,38 @@
+https://practice.geeksforgeeks.org/problems/shop-in-candy-store1145/1
+
+class Solution{
+    static ArrayList<Integer> candyStore(int candies[],int N,int K){
+       ArrayList<Integer> ans  =  new ArrayList<>();
+
+       //Sorting the array according to the price
+       Arrays.sort(candies);
+
+       //For minimum spend (Buy from left, take free from right)
+       int min = 0;
+       int buyMin = 0;
+       int freeMin = N-1;
+
+       while(buyMin<=freeMin){
+           min = min+candies[buyMin];
+           buyMin++;
+           freeMin = freeMin-K;
+       }
+
+       //For maximum spend (Buy from right, take free from left)
+       int max = 0;
+       int buyMax = N-1;
+       int freeMax = 0;
+
+       while(freeMax<=buyMax){
+           max=max+candies[buyMax];
+           buyMax--;
+           freeMax = freeMax+K;
+
+       }
+
+       ans.add(min);
+       ans.add(max);
+
+       return ans;
+    }
+}

@@ -1,0 +1,26 @@
+https://practice.geeksforgeeks.org/problems/implement-atoi/1
+
+class Solution
+{
+    int atoi(String s) {
+	    int result =0;
+	    boolean negetive = false;
+	    int i=0;
+	    if(s.charAt(i)=='-'){
+	        negetive = true;
+	        i++;
+	    }
+        for(;i<s.length(); i++){
+
+            if(s.charAt(i)-'0' >=0 && s.charAt(i)-'0' <=9){
+                result = result*10+ s.charAt(i)-'0';
+            }else{
+                return -1;
+            }
+        }
+        if (negetive)
+            return result*-1;
+        else
+            return result;
+    }
+}

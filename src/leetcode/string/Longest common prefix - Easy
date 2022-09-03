@@ -1,0 +1,38 @@
+https://practice.geeksforgeeks.org/problems/longest-common-prefix-in-an-array5129/1
+
+class Solution{
+    String longestCommonPrefix(String strs[], int n){
+        StringBuilder sb = new StringBuilder();
+        boolean flag = true;
+        for(int i=0; i<strs[0].length();i++){
+            if(strs[0].length() < i){
+                return "-1";
+            }
+            char ch1 = strs[0].charAt(i);
+            for(int j=1; j<strs.length;j++){
+                if(strs[j].length() > i){
+                    char ch2 =  strs[j].charAt(i);
+                    if(ch1!=ch2){
+                        flag = false;
+                        break;
+                    }
+                }else{
+                    flag = false;
+                    break;
+                }
+            }
+            if(flag){
+                sb.append(ch1);
+            }else{
+                break;
+            }
+        }
+        if(sb.length()>0){
+            return sb.toString();
+        }else{
+            return "-1";
+        }
+
+    }
+
+}

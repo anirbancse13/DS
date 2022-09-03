@@ -1,0 +1,62 @@
+https://practice.geeksforgeeks.org/problems/n-meetings-in-one-room-1587115620/1
+
+class Solution 
+{
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    public static int maxMeetings(int start[], int end[], int n)
+    {
+        //Variable to hold the number of meetings possible
+        int count =0;
+        
+        //Step 1: Create a list of all meeting with their end time sorted in asc order
+        List<Meeting> meetings = new ArrayList<>();
+        
+        for(int i=0; i<n;i++){
+            meetings.add(new Meeting(start[i],end[i]));
+        }
+        
+        Collections.sort(meetings,new MeetingComparator());
+        
+        
+        //Step 2: Check the number of meetings whose start time is gt end time of previous meetings from the sorted list
+            
+            // First meeting will always take place
+        count++;
+        int prevMeetingEndTime = meetings.get(0).end;
+        
+            //Checking from second meeting
+            for(int i=1; i<meetings.size();i++){
+                int currMeetingStartTime = meetings.get(i).start;
+                if(prevMeetingEndTime < currMeetingStartTime){
+                    prevMeetingEndTime = meetings.get(i).end;
+                    count++;
+                }
+            }
+        
+        //Step 3: All possible meetings stored in count var
+        return count;
+        
+    }
+}
+
+class Meeting{
+    int start;
+    int end;
+    
+    Meeting(int start, int end){
+        this.start=start;
+        this.end=end;
+    }
+}
+
+class MeetingComparator implements Comparator<Meeting>{
+    @Override
+    public int compare(Meeting m1, Meeting m2){
+        if (m1.end < m2.end)
+            return -1;
+        else if (m1.end > m2.end)
+            return 1;
+        return 1; 
+    }
+}

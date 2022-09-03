@@ -1,0 +1,28 @@
+https://practice.geeksforgeeks.org/problems/reverse-words-in-a-given-string5459/1
+
+class Solution
+{
+    //Function to reverse words in a given string.
+    String reverseWords(String S)
+    {
+        char[] str = new StringBuilder(S).reverse().toString().toCharArray();
+        Stack<Character> stack = new Stack<>();
+        StringBuilder sb = new StringBuilder();
+
+        for(Character c : str){
+            if(c=='.'){
+                while(!stack.isEmpty()){
+                    sb.append(stack.pop());
+                }
+                sb.append(c);
+            }else{
+                stack.push(c);
+            }
+        }
+        while(!stack.isEmpty()){
+            sb.append(stack.pop());
+        }
+
+        return sb.toString();
+    }
+}
